@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
+
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -45,4 +47,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    
+    /**
+ * Relasi ke Product (Satu user memiliki banyak produk)
+ */
+public function products(): \Illuminate\Database\Eloquent\Relations\HasMany
+{
+    return $this->hasMany(Product::class);
+}
 }

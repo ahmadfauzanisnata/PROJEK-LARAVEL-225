@@ -17,6 +17,22 @@
                    </ul>
                 </div>
             </div>
+             <div><label><strong>Nama</strong></label><br>
+    <input type="text" placeholder="Nama" required>
+    </div>
+      <div><label><strong>NIM</strong></label><br>
+    <input type="text" placeholder="NIM" required>
+    </div>
+        <div><label><strong>Program Studi</strong></label><br>
+    <input type="text" placeholder="Program Studi" required>
+    </div>
+    <div>
+        <label><strong>Hobi</strong></label><br>   
+        <input type="text" placeholder="Hobi" required><br>
+    </div>
+    <button><a href="{{ route('dashboard') }}"></a>Simpan</button>
         </div>
     </div>
 </x-app-layout>
+
+
