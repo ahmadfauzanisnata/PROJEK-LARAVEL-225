@@ -5,51 +5,63 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ProductController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
         $products = Product::all();
-
         return view('product.index', compact('products'));
+    }
+
+    public function create()
+    {
+        $users = User::orderBy('name')->get();
+        return view('product.create', compact('users'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'quantity' => 'required|integer',
+            'qty' => 'required|integer', // Menggunakan 'qty' sesuai database
             'price' => 'required|numeric',
             'user_id' => 'required|exists:users,id',
         ]);
 
-        $product = Product::create($validated);
+        Product::create($validated);
 
         return redirect()->route('product.index')->with('success', 'Product created successfully.');
-    }
-
-    public function create()
-    {
-        $users = User::orderBy('name')->get();
-
-        return view('product.create', compact('users'));
     }
 
     public function show($id)
     {
         $product = Product::findOrFail($id);
-
         return view('product.view', compact('product'));
+    }
+
+    public function edit(Product $product)
+    {
+        // Cek Policy
+        $this->authorize('update', $product);
+
+        $users = User::orderBy('name')->get();
+        return view('product.edit', compact('product', 'users'));
     }
 
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
+        
+        // Cek Policy
+        $this->authorize('update', $product);
 
         $validated = $request->validate([
             'name' => 'sometimes|string|max:255',
-            'quantity' => 'sometimes|integer',
+            'qty' => 'sometimes|integer',
             'price' => 'sometimes|numeric',
             'user_id' => 'sometimes|exists:users,id',
         ]);
@@ -59,16 +71,12 @@ class ProductController extends Controller
         return redirect()->route('product.index')->with('success', 'Product updated successfully.');
     }
 
-    public function edit(Product $product)
-    {
-        $users = User::orderBy('name')->get();
-
-        return view('product.edit', compact('product', 'users'));
-    }
-
     public function delete($id)
     {
         $product = Product::findOrFail($id);
+
+        // Cek Policy: Admin atau Pemilik
+        $this->authorize('delete', $product);
 
         $product->delete();
 

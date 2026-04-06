@@ -111,13 +111,16 @@
                                 Delete Product
                             </button>
 
+                           
+                           
+                           
                             <div class="flex items-center gap-3">
                                 <a href="{{ route('product.show', $product) }}" 
                                    class="px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
                                     Cancel
                                 </a>
                                 <button type="submit" 
-                                        class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg shadow-sm transition">
+                                        class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-black text-sm font-medium rounded-lg shadow-sm transition">
                                     Update Product
                                 </button>
                             </div>
