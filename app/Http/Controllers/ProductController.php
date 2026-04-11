@@ -7,6 +7,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
+// 1. Tambahkan baris import ini di bagian atas
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
+
 class ProductController extends Controller
 {
     use AuthorizesRequests;
@@ -23,14 +27,13 @@ class ProductController extends Controller
         return view('product.create', compact('users'));
     }
 
-    public function store(Request $request)
+    /**
+     * 2. Ganti 'Request' menjadi 'StoreProductRequest'
+     */
+    public function store(StoreProductRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'qty' => 'required|integer', // Menggunakan 'qty' sesuai database
-            'price' => 'required|numeric',
-            'user_id' => 'required|exists:users,id',
-        ]);
+        // Validasi dilakukan secara otomatis sebelum baris ini dieksekusi
+        $validated = $request->validated();
 
         Product::create($validated);
 
@@ -45,26 +48,23 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        // Cek Policy
         $this->authorize('update', $product);
 
         $users = User::orderBy('name')->get();
         return view('product.edit', compact('product', 'users'));
     }
 
-    public function update(Request $request, $id)
+    /**
+     * 3. Ganti 'Request' menjadi 'UpdateProductRequest'
+     */
+    public function update(UpdateProductRequest $request, $id)
     {
         $product = Product::findOrFail($id);
         
-        // Cek Policy
         $this->authorize('update', $product);
 
-        $validated = $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'qty' => 'sometimes|integer',
-            'price' => 'sometimes|numeric',
-            'user_id' => 'sometimes|exists:users,id',
-        ]);
+        // Validasi dilakukan secara otomatis menggunakan aturan di UpdateProductRequest
+        $validated = $request->validated();
 
         $product->update($validated);
 
@@ -75,7 +75,6 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        // Cek Policy: Admin atau Pemilik
         $this->authorize('delete', $product);
 
         $product->delete();
