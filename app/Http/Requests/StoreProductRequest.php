@@ -36,7 +36,7 @@ class StoreProductRequest extends FormRequest
             'name.max' => 'Nama produk tidak boleh lebih dari 255 karakter.',
 
             'quantity.required' => 'Jumlah (kuantitas) produk wajib diisi.',
-            'quantity.integer' => 'Jumlah produk harus berupa angka bulat (tidak boleh desimal).',
+            'qty.integer' => 'Jumlah produk harus berupa angka bulat (tidak boleh desimal).',
 
             'price.required' => 'Harga produk wajib diisi.',
             'price.numeric' => 'Harga produk harus berupa angka yang valid.',
