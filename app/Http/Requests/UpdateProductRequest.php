@@ -11,15 +11,15 @@ class UpdateProductRequest extends FormRequest
         return true;
     }
 
-    public function rules(): array
-    {
-        return [
-            'name'     => 'sometimes|string|max:255',
-            'qty' => 'sometimes|integer|min:0',
-            'price'    => 'sometimes|numeric|min:0',
-            'user_id' => 'required|exists:users,id',
-        ];
-    }
+   public function rules(): array
+{
+    return [
+        'name'    => 'sometimes|string|max:255',
+        'qty'     => 'sometimes|integer', 
+        'price'   => 'sometimes|numeric',
+        'user_id' => 'sometimes|exists:users,id',
+    ];
+}
 
     public function messages(): array
     {
