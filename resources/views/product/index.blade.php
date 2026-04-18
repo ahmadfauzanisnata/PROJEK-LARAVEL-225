@@ -6,10 +6,13 @@
 
                     {{-- Header Section: Di luar tabel agar tidak hilang saat data kosong --}}
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
-                        <div>
-                            <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 tracking-tight">Product List</h2>
-                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage your product inventory</p>
-                        </div>
+                      <div>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 tracking-tight">Product List</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage your product inventory</p>
+    </div>
+    @can('manage-products')
+        <x-add-product :url="route('product.create')" :name="'Product'"/>
+    @endcan
                         
                         <div class="flex items-center gap-3">
                             @can('export-product')
