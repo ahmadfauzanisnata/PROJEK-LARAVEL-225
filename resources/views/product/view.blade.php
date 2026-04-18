@@ -46,35 +46,35 @@
                     <div class="rounded-lg border border-gray-200 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700">
                         
                         {{-- Name --}}
-                        <div class="flex items-center px-5 py-4">
-                            <div class="w-32 shrink-0 text-sm text-gray-500 dark:text-gray-400">Product Name</div>
+                        <div class="flex items-center px-5 py-4 gap-4">
+                            <div class="w-32 shrink-0 text-sm text-gray-500 dark:text-gray-400">Product Name:</div>
                             <div class="text-sm font-semibold text-gray-900 dark:text-gray-100">{{ $product->name }}</div>
                         </div>
 
                         {{-- Quantity --}}
-                        <div class="flex items-center px-5 py-4">
-                            <div class="w-32 shrink-0 text-sm text-gray-500 dark:text-gray-400">Quantity</div>
+                        <div class="flex items-center px-5 py-4 gap-4">
+                            <div class="w-32 shrink-0 text-sm text-gray-500 dark:text-gray-400">Quantity:</div>
                             <div>
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
-                                    {{ $product->quantity > 10 
+                                    {{ $product->qty > 10 
                                         ? 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300' 
                                         : 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300' }}">
-                                    {{ $product->quantity }} {{ $product->quantity > 10 ? '(In Stock)' : '(Low Stock)' }}
+                                    {{ $product->qty }} {{ $product->qty > 10 ? '(In Stock)' : '(Low Stock)' }}
                                 </span>
                             </div>
                         </div>
 
                         {{-- Price --}}
-                        <div class="flex items-center px-5 py-4">
-                            <div class="w-32 shrink-0 text-sm text-gray-500 dark:text-gray-400">Price</div>
+                        <div class="flex items-center px-5 py-4 gap-4">
+                            <div class="w-32 shrink-0 text-sm text-gray-500 dark:text-gray-400">Price:</div>
                             <div class="text-sm font-mono font-semibold text-gray-900 dark:text-gray-100">
                                 Rp {{ number_format($product->price, 0, ',', '.') }}
                             </div>
                         </div>
 
                         {{-- Owner --}}
-                        <div class="flex items-center px-5 py-4">
-                            <div class="w-32 shrink-0 text-sm text-gray-500 dark:text-gray-400">Owner</div>
+                        <div class="flex items-center px-5 py-4 gap-4">
+                            <div class="w-32 shrink-0 text-sm text-gray-500 dark:text-gray-400">Owner:</div>
                             <div class="flex items-center gap-2">
                                 <div class="h-7 w-7 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-300 text-xs font-bold uppercase">
                                     {{ substr($product->user->name ?? '?', 0, 1) }}
@@ -84,16 +84,16 @@
                         </div>
 
                         {{-- Created At --}}
-                        <div class="flex items-center px-5 py-4">
-                            <div class="w-32 shrink-0 text-sm text-gray-500 dark:text-gray-400">Created At</div>
+                        <div class="flex items-center px-5 py-4 gap-4">
+                            <div class="w-32 shrink-0 text-sm text-gray-500 dark:text-gray-400">Created At:</div>
                             <div class="text-sm text-gray-600 dark:text-gray-300">
                                 {{ $product->created_at->format('d M Y, H:i') }}
                             </div>
                         </div>
 
                         {{-- Updated At --}}
-                        <div class="flex items-center px-5 py-4">
-                            <div class="w-32 shrink-0 text-sm text-gray-500 dark:text-gray-400">Updated At</div>
+                        <div class="flex items-center px-5 py-4 gap-4">
+                            <div class="w-32 shrink-0 text-sm text-gray-500 dark:text-gray-400">Updated At:</div>
                             <div class="text-sm text-gray-600 dark:text-gray-300">
                                 {{ $product->updated_at->format('d M Y, H:i') }}
                             </div>
