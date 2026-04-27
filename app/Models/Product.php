@@ -16,6 +16,7 @@ class Product extends Model
         'qty',
         'price',
         'user_id',
+        'category_id',
     ];
 
     /**
@@ -29,8 +30,7 @@ class Product extends Model
     /**
      * Relasi ke Category (Satu produk bisa punya banyak kategori berdasarkan ERD)
      */
-    public function categories(): HasMany
-    {
-        return $this->hasMany(Category::class);
-    }
+   public function category() {
+    return $this->belongsTo(Category::class);
+}
 }
