@@ -18,6 +18,7 @@ class UpdateProductRequest extends FormRequest
         'qty'     => 'sometimes|integer', 
         'price'   => 'sometimes|numeric',
         'user_id' => 'sometimes|exists:users,id',
+        'category_id' => 'sometimes|exists:categories,id',
     ];
 }
 
