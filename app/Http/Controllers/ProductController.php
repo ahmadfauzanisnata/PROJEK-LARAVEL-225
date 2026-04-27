@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Models\Category;
 
 // 1. Tambahkan baris import ini di bagian atas
 use App\Http\Requests\StoreProductRequest;
@@ -21,11 +22,17 @@ class ProductController extends Controller
         return view('product.index', compact('products'));
     }
 
-    public function create()
-    {
-        $users = User::orderBy('name')->get();
-        return view('product.create', compact('users'));
-    }
+public function create()
+{
+    // Mengambil semua kategori
+    $categories = Category::all();
+    
+    // Mengambil semua user (agar variabel $users tersedia di Blade)
+    $users = User::all();
+    
+    // Kirim keduanya ke view
+    return view('product.create', compact('categories', 'users'));
+}
 
     /**
      * 2. Ganti 'Request' menjadi 'StoreProductRequest'
@@ -45,13 +52,17 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         return view('product.view', compact('product'));
     }
-
-    public function edit(Product $product)
+public function edit(Product $product)
     {
         $this->authorize('update', $product);
 
         $users = User::orderBy('name')->get();
-        return view('product.edit', compact('product', 'users'));
+        
+        // 1. Ambil data kategori agar bisa dipilih ulang saat edit produk
+        $categories = Category::all(); 
+
+        // 2. Tambahkan 'categories' ke dalam fungsi compact
+        return view('product.edit', compact('product', 'users', 'categories'));
     }
 
     /**
@@ -70,6 +81,7 @@ class ProductController extends Controller
 
         return redirect()->route('product.index')->with('success', 'Product updated successfully.');
     }
+    
 
     public function delete($id)
     {
@@ -81,4 +93,8 @@ class ProductController extends Controller
 
         return redirect()->route('product.index')->with('success', 'Product berhasil dihapus');
     }
+
+    
+
+    
 }
