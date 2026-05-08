@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
+
+Route::resource('category', CategoryController::class)->middleware('auth');
 
 
 Route::get('/', function () {
