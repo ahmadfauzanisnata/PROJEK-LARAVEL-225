@@ -1,1 +1,4 @@
-![alt text](image-18.png)
+
+
+Hasilnya
+![alt text](image-19.png)
